@@ -1,52 +1,72 @@
-def add_expense(expenses):
-    try:
-        amount = float(input("Enter expense amount: "))
-        date = input("Enter date (YYYY-MM-DD): ")
-        category = input("Enter category (e.g., Food, Transport, Utilities): ")
-        
-        # Store as a tuple (category, amount, date) and append to the list
-        expenses.append((category, amount, date))
-        print("Expense added successfully!\n")
-    except ValueError:
-        print("Invalid amount. Please enter a numerical value.\n")
+# Daily Expense Tracker
 
-def generate_summary(expenses):
-    if not expenses:
-        print("No expenses recorded yet.\n")
-        return
+def add_expense(expenses_list):
+    amt_str = input("Enter amount: ")
     
-    summary = {}
-    # Loop through the list of tuples
-    for category, amount, date in expenses:
-        # Populate the dictionary with category-wise totals
-        if category in summary:
-            summary[category] += amount
-        else:
-            summary[category] = amount
+    # Using simple if-else conditional instead of try-except
+    if amt_str.isdigit() == True:
+        amt = float(amt_str)
+        date = input("Enter date (DD-MM-YYYY): ")
+        cat = input("Enter category (Food, Travel, etc): ")
+        
+        # Tuple assignment and list operation
+        record = (cat, amt, date)
+        expenses_list.append(record)
+        print("Expense added.")
+        print()
+    else:
+        print("Wrong input. Put a number.")
+        print()
+
+def show_summary(expenses_list):
+    if len(expenses_list) == 0:
+        print("No expenses to show.")
+        print()
+    else:
+        summary_dict = {} 
+        
+        # Iteration using a for loop
+        for item in expenses_list:
+            # Accessing tuple elements by index instead of advanced unpacking
+            cat = item[0]
+            amt = item[1]
             
-    print("\n--- Category-wise Expense Summary ---")
-    for cat, total in summary.items():
-        print(f"{cat}: ₹{total:.2f}")
-    print("-------------------------------------\n")
+            # Checking dictionary keys
+            if cat in summary_dict:
+                summary_dict[cat] = summary_dict[cat] + amt
+            else:
+                summary_dict[cat] = amt
+                
+        print("--- Summary ---")
+        for key in summary_dict:
+            # Basic print statement without f-strings
+            print(key, ": Rs.", summary_dict[key])
+        print("---------------")
+        print()
 
 def main():
-    expenses = [] # List to store expense tuples
+    my_expenses = [] 
     
-    while True:
+    run = True
+    # Iteration statement (while)
+    while run == True:
         print("1. Add Expense")
-        print("2. View Summary")
+        print("2. Show Summary")
         print("3. Exit")
-        choice = input("Choose an option (1/2/3): ")
         
-        if choice == '1':
-            add_expense(expenses)
-        elif choice == '2':
-            generate_summary(expenses)
-        elif choice == '3':
-            print("Exiting Expense Tracker. Goodbye!")
-            break
+        choice = input("Enter choice: ")
+        
+        # Conditional if-elif-else block
+        if choice == "1":
+            add_expense(my_expenses)
+        elif choice == "2":
+            show_summary(my_expenses)
+        elif choice == "3":
+            run = False
         else:
-            print("Invalid choice. Please select a valid option.\n")
+            print("Invalid choice")
+            print()
 
-if __name__ == "__main__":
+# Standard function call
+main()
     main()
