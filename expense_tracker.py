@@ -1,52 +1,67 @@
-def add_expense(expenses):
-    try:
-        amount = float(input("Enter expense amount: "))
-        date = input("Enter date (YYYY-MM-DD): ")
-        category = input("Enter category (e.g., Food, Transport, Utilities): ")
-        
-        # Store as a tuple (category, amount, date) and append to the list
-        expenses.append((category, amount, date))
-        print("Expense added successfully!\n")
-    except ValueError:
-        print("Invalid amount. Please enter a numerical value.\n")
+# Expense Tracker for Grow Up Classes
 
-def generate_summary(expenses):
-    if not expenses:
-        print("No expenses recorded yet.\n")
-        return
+def add_expense(record_list):
+    amount_input = input("Enter amount spent: ")
     
-    summary = {}
-    # Loop through the list of tuples
-    for category, amount, date in expenses:
-        # Populate the dictionary with category-wise totals
-        if category in summary:
-            summary[category] += amount
-        else:
-            summary[category] = amount
+    # checking if I typed a number
+    if amount_input.isdigit() == True:
+        money = float(amount_input)
+        date = input("Enter date (DD-MM-YYYY): ")
+        # using real things we buy for the institute and business
+        category = input("Enter category (e.g., Pamphlets, Markers, Divyansh Sir salary, Vestige stock): ")
+        
+        entry = (category, money, date)
+        record_list.append(entry)
+        print("Done. Expense saved.")
+        print()
+    else:
+        print("Error: Type a number without decimals.")
+        print()
+
+def show_summary(record_list):
+    if len(record_list) == 0:
+        print("Nothing to show yet.")
+        print()
+    else:
+        totals = {} 
+        
+        # looping through the records
+        for item in record_list:
+            cat = item[0]
+            money = item[1]
             
-    print("\n--- Category-wise Expense Summary ---")
-    for cat, total in summary.items():
-        print(f"{cat}: ₹{total:.2f}")
-    print("-------------------------------------\n")
+            # add to existing category or make a new one
+            if cat in totals:
+                totals[cat] = totals[cat] + money
+            else:
+                totals[cat] = money
+                
+        print("--- Total Spendings ---")
+        for key in totals:
+            print(key, ": Rs.", totals[key])
+        print("-----------------------")
+        print()
 
 def main():
-    expenses = [] # List to store expense tuples
+    my_ledger = [] 
     
-    while True:
-        print("1. Add Expense")
-        print("2. View Summary")
-        print("3. Exit")
-        choice = input("Choose an option (1/2/3): ")
+    running = True
+    while running == True:
+        print("1. Add New Expense")
+        print("2. See Total Spending")
+        print("3. Close Program")
         
-        if choice == '1':
-            add_expense(expenses)
-        elif choice == '2':
-            generate_summary(expenses)
-        elif choice == '3':
-            print("Exiting Expense Tracker. Goodbye!")
-            break
+        choice = input("Pick an option: ")
+        
+        if choice == "1":
+            add_expense(my_ledger)
+        elif choice == "2":
+            show_summary(my_ledger)
+        elif choice == "3":
+            running = False
         else:
-            print("Invalid choice. Please select a valid option.\n")
+            print("Wrong choice.")
+            print()
 
-if __name__ == "__main__":
-    main()
+# start program
+main()
