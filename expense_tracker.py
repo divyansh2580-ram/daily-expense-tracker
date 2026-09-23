@@ -1,52 +1,95 @@
-def add_expense(expenses):
-    try:
-        amount = float(input("Enter expense amount: "))
-        date = input("Enter date (YYYY-MM-DD): ")
-        category = input("Enter category (e.g., Food, Transport, Utilities): ")
-        
-        # Store as a tuple (category, amount, date) and append to the list
-        expenses.append((category, amount, date))
-        print("Expense added successfully!\n")
-    except ValueError:
-        print("Invalid amount. Please enter a numerical value.\n")
+expenses = []
 
-def generate_summary(expenses):
-    if not expenses:
-        print("No expenses recorded yet.\n")
-        return
-    
-    summary = {}
-    # Loop through the list of tuples
-    for category, amount, date in expenses:
-        # Populate the dictionary with category-wise totals
-        if category in summary:
-            summary[category] += amount
-        else:
-            summary[category] = amount
-            
-    print("\n--- Category-wise Expense Summary ---")
-    for cat, total in summary.items():
-        print(f"{cat}: ₹{total:.2f}")
-    print("-------------------------------------\n")
 
-def main():
-    expenses = [] # List to store expense tuples
-    
-    while True:
-        print("1. Add Expense")
-        print("2. View Summary")
-        print("3. Exit")
-        choice = input("Choose an option (1/2/3): ")
-        
-        if choice == '1':
-            add_expense(expenses)
-        elif choice == '2':
-            generate_summary(expenses)
-        elif choice == '3':
-            print("Exiting Expense Tracker. Goodbye!")
-            break
-        else:
-            print("Invalid choice. Please select a valid option.\n")
+def add_expense():
+    category = input("Enter expense category: ")
+    amount_text = input("Enter amount in rupees: ")
+    date = input("Enter date (DD-MM-YYYY): ")
+
+    if category != "" and amount_text.isdigit() and date != "":
+        amount = int(amount_text)
+        expense = (category, amount, date)
+        expenses.append(expense)
+        print("Expense added successfully.")
+    else:
+        print("Invalid input. Category, amount, and date cannot be empty.")
+
+
+def view_expenses():
+    if len(expenses) == 0:
+        print("No expenses added yet.")
+    else:
+        print("\n--- All Expenses ---")
+        index = 0
+
+        while index < len(expenses):
+            print("Category:", expenses[index][0])
+            print("Amount: Rs.", expenses[index][1])
+            print("Date:", expenses[index][2])
+            print("-------------------")
+            index = index + 1
+
+
+def show_summary():
+    category_total = {}
+
+    if len(expenses) == 0:
+        print("No expenses available for summary.")
+    else:
+        index = 0
+
+        while index < len(expenses):
+            category = expenses[index][0]
+            amount = expenses[index][1]
+
+            if category in category_total:
+                category_total[category] = category_total[category] + amount
+            else:
+                category_total[category] = amount
+
+            index = index + 1
+
+        print("\n--- Category-wise Expense Summary ---")
+
+        for category in category_total:
+            print(category, ": Rs.", category_total[category])
+
+
+def show_total_expense():
+    total = 0
+    index = 0
+
+    while index < len(expenses):
+        total = total + expenses[index][1]
+        index = index + 1
+
+    print("Total expense: Rs.", total)
+
+
+choice = "0"
+
+while choice != "5":
+    print("\n===== DAILY EXPENSE TRACKER =====")
+    print("1. Add Expense")
+    print("2. View All Expenses")
+    print("3. View Category-wise Summary")
+    print("4. View Total Expense")
+    print("5. Exit")
+
+    choice = input("Enter your choice: ")
+
+    if choice == "1":
+        add_expense()
+    elif choice == "2":
+        view_expenses()
+    elif choice == "3":
+        show_summary()
+    elif choice == "4":
+        show_total_expense()
+    elif choice == "5":
+        print("Thank you for using Daily Expense Tracker.")
+    else:
+        print("Invalid choice. Please enter a number from 1 to 5.")")
 
 if __name__ == "__main__":
     main()
