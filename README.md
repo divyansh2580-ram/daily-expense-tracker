@@ -1,52 +1,26 @@
-def add_expense(expenses):
-    try:
-        amount = float(input("Enter expense amount: "))
-        date = input("Enter date (YYYY-MM-DD): ")
-        category = input("Enter category (e.g., Food, Transport, Utilities): ")
-        
-        # Store as a tuple (category, amount, date) and append to the list
-        expenses.append((category, amount, date))
-        print("Expense added successfully!\n")
-    except ValueError:
-        print("Invalid amount. Please enter a numerical value.\n")
+# Daily Expense Tracker
 
-def generate_summary(expenses):
-    if not expenses:
-        print("No expenses recorded yet.\n")
-        return
-    
-    summary = {}
-    # Loop through the list of tuples
-    for category, amount, date in expenses:
-        # Populate the dictionary with category-wise totals
-        if category in summary:
-            summary[category] += amount
-        else:
-            summary[category] = amount
-            
-    print("\n--- Category-wise Expense Summary ---")
-    for cat, total in summary.items():
-        print(f"{cat}: ₹{total:.2f}")
-    print("-------------------------------------\n")
+This is a Python-based Daily Expense Tracker created for the CSE1021 mini-project. It uses basic data structures like lists, tuples, and dictionaries to record and summarize everyday expenses.
 
-def main():
-    expenses = [] # List to store expense tuples
-    
-    while True:
-        print("1. Add Expense")
-        print("2. View Summary")
-        print("3. Exit")
-        choice = input("Choose an option (1/2/3): ")
-        
-        if choice == '1':
-            add_expense(expenses)
-        elif choice == '2':
-            generate_summary(expenses)
-        elif choice == '3':
-            print("Exiting Expense Tracker. Goodbye!")
-            break
-        else:
-            print("Invalid choice. Please select a valid option.\n")
+## How to Set Up and Run the Project
 
-if __name__ == "__main__":
-    main()
+**1. Prerequisites**
+* You must have Python installed on your system. 
+* No external libraries or dependencies are required. It only uses built-in Python functions.
+
+**2. Downloading the Project**
+* Clone this repository to your local machine using the command terminal:
+  `git clone <paste-your-repository-url-here>`
+* Navigate into the project folder:
+  `cd <your-folder-name>`
+
+**3. Execution**
+* Open your command line terminal (CMD, PowerShell, or macOS Terminal).
+* Run the following command to start the application:
+  `python expense_tracker.py`
+
+**4. How to Use**
+* Upon running the program, a menu will appear in the terminal.
+* Type `1` to add a new expense (requires amount, date, and category).
+* Type `2` to view a category-wise total of your spending.
+* Type `3` to exit the program.
