@@ -24,3 +24,7 @@ This is a Python-based Daily Expense Tracker created for the CSE1021 mini-projec
 * Type `1` to add a new expense (requires amount, date, and category).
 * Type `2` to view a category-wise total of your spending.
 * Type `3` to exit the program.
+
+
+Name - Divyansh Agarwal
+Registration No. - 26BCE10443
