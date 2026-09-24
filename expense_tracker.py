@@ -37,7 +37,6 @@ while True:
         if len(category_list) == 0:
             print("Nothing to show.")
         else:
-            # Beginner way to find unique categories without using dictionaries
             checked = []
             for i in range(len(category_list)):
                 current_cat = category_list[i]
@@ -45,7 +44,7 @@ while True:
                 if current_cat not in checked:
                     checked.append(current_cat)
                     
-                    # Find total for this specific category
+                    # Find total for this specific category given
                     cat_total = 0
                     for j in range(len(category_list)):
                         if category_list[j] == current_cat:
