@@ -1,93 +1,67 @@
-expenses = []
+category_list = []
+amount_list = []
+date_list = []
 
-
-def add_expense():
-    category = input("Enter expense category: ")
-    amount_text = input("Enter amount in rupees: ")
-    date = input("Enter date (DD-MM-YYYY): ")
-
-    if category != "" and amount_text.isdigit() and date != "":
-        amount = int(amount_text)
-        expense = (category, amount, date)
-        expenses.append(expense)
-        print("Expense added successfully.")
-    else:
-        print("Invalid input. Category, amount, and date cannot be empty.")
-
-
-def view_expenses():
-    if len(expenses) == 0:
-        print("No expenses added yet.")
-    else:
-        print("\n--- All Expenses ---")
-        index = 0
-
-        while index < len(expenses):
-            print("Category:", expenses[index][0])
-            print("Amount: Rs.", expenses[index][1])
-            print("Date:", expenses[index][2])
-            print("-------------------")
-            index = index + 1
-
-
-def show_summary():
-    category_total = {}
-
-    if len(expenses) == 0:
-        print("No expenses available for summary.")
-    else:
-        index = 0
-
-        while index < len(expenses):
-            category = expenses[index][0]
-            amount = expenses[index][1]
-
-            if category in category_total:
-                category_total[category] = category_total[category] + amount
-            else:
-                category_total[category] = amount
-
-            index = index + 1
-
-        print("\n--- Category-wise Expense Summary ---")
-
-        for category in category_total:
-            print(category, ": Rs.", category_total[category])
-
-
-def show_total_expense():
-    total = 0
-    index = 0
-
-    while index < len(expenses):
-        total = total + expenses[index][1]
-        index = index + 1
-
-    print("Total expense: Rs.", total)
-
-
-choice = "0"
-
-while choice != "5":
-    print("\n===== DAILY EXPENSE TRACKER =====")
+while True:
+    print("\n--- Daily Expense Tracker ---")
     print("1. Add Expense")
-    print("2. View All Expenses")
-    print("3. View Category-wise Summary")
-    print("4. View Total Expense")
+    print("2. View All")
+    print("3. Category Summary")
+    print("4. Total Expense")
     print("5. Exit")
-
-    choice = input("Enter your choice: ")
-
-    if choice == "1":
-        add_expense()
-    elif choice == "2":
-        view_expenses()
-    elif choice == "3":
-        show_summary()
-    elif choice == "4":
-        show_total_expense()
-    elif choice == "5":
-        print("Thank you for using Daily Expense Tracker.")
+    
+    choice = input("Enter your choice (1-5): ")
+    
+    if choice == '1':
+        c = input("Category: ")
+        a = input("Amount in Rs: ")
+        d = input("Date: ")
+        
+        category_list.append(c)
+        amount_list.append(int(a))
+        date_list.append(d)
+        
+        print("Expense added!")
+        
+    elif choice == '2':
+        if len(category_list) == 0:
+            print("Nothing added yet.")
+        else:
+            for i in range(len(category_list)):
+                print("\nExpense", i + 1)
+                print("Category:", category_list[i])
+                print("Amount: Rs.", amount_list[i])
+                print("Date:", date_list[i])
+                
+    elif choice == '3':
+        if len(category_list) == 0:
+            print("Nothing to show.")
+        else:
+            # Beginner way to find unique categories without using dictionaries
+            checked = []
+            for i in range(len(category_list)):
+                current_cat = category_list[i]
+                
+                if current_cat not in checked:
+                    checked.append(current_cat)
+                    
+                    # Find total for this specific category
+                    cat_total = 0
+                    for j in range(len(category_list)):
+                        if category_list[j] == current_cat:
+                            cat_total = cat_total + amount_list[j]
+                            
+                    print(current_cat + ": Rs. " + str(cat_total))
+                    
+    elif choice == '4':
+        total = 0
+        for amt in amount_list:
+            total = total + amt
+        print("Total expense: Rs. " + str(total))
+        
+    elif choice == '5':
+        print("Bye!")
+        break
+        
     else:
-       print("Invalid choice. Please enter a number from 1 to 5.")
-
+        print("Invalid choice!")
