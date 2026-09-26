@@ -7,7 +7,7 @@ def add_expense(cat_list, amt_list, dt_list):
     if a.isdigit() == True:
         d = input("Date (DD-MM-YYYY): ")
         
-        # Adding to our parallel lists
+        # Using top-down design
         cat_list.append(c)
         amt_list.append(int(a))
         dt_list.append(d)
