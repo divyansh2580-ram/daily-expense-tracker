@@ -3,7 +3,7 @@ def add_expense(cat_list, amt_list, dt_list):
     c = input("Category (e.g., Food, Travel, Books): ")
     a = input("Amount in Rs: ")
     
-    # Checking if the user typed a valid number using basic string method
+    # Checking if the user typed a valid number 
     if a.isdigit() == True:
         d = input("Date (DD-MM-YYYY): ")
         
@@ -13,7 +13,7 @@ def add_expense(cat_list, amt_list, dt_list):
         dt_list.append(d)
         print("Expense added successfully!")
     else:
-        print("Invalid amount. Please enter numbers only.")
+        print("Invalid amount - Please enter numbers only.")
 
 def view_all(cat_list, amt_list, dt_list):
     print("\n-- All Expenses --")
