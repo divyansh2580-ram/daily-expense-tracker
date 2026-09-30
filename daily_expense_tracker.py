@@ -7,8 +7,8 @@ date_list = []
 print("===================================")
 print("       Expense Tracker             ")
 print("===================================")
-name = input("Please enter your name to start: ")
-print(f"\nHello {name}! Let's manage your budget.")
+user = input("What's your name? ")
+print("\nHey " + user + ", let's manage your budget.")
 
 # Main Program Loop
 while True:
@@ -19,9 +19,9 @@ while True:
     print("4. Total Expense")
     print("5. Exit")
     
-    choice = input("Enter your choice (1-5): ")
+    opt = input("Type your choice (1 to 5): ")
     
-    if choice == '1':
+    if opt == '1':
         c = input("Category: ")
         a = input("Amount in Rs: ")
         
@@ -34,41 +34,43 @@ while True:
         else:
             print("Invalid amount! Please enter numbers only.")
             
-    elif choice == '2':
-        if len(category_list) == 0:
-            print("Nothing added yet.")
+    elif opt == '2':
+        total_items = len(category_list)
+        if total_items == 0:
+            print("No expenses recorded yet.")
         else:
-            for i in range(len(category_list)):
-                print(f"\nExpense {i + 1}")
-                print(f"Category: {category_list[i]}")
-                print(f"Amount: Rs. {amount_list[i]}")
-                print(f"Date: {date_list[i]}")
+            for idx in range(total_items):
+                print("\nExpense No.", idx + 1)
+                print("Category:", category_list[idx])
+                print("Amount:", amount_list[idx], "Rs")
+                print("Date:", date_list[idx])
                 
-    elif choice == '3':
-        if len(category_list) == 0:
-            print("Nothing to show.")
+    elif opt == '3':
+        total_items = len(category_list)
+        if total_items == 0:
+            print("List is empty.")
         else:
-            checked = []
-            for i in range(len(category_list)):
-                current_cat = category_list[i]
+            visited = []
+            for x in range(total_items):
+                cat = category_list[x]
                 
-                if current_cat not in checked:
-                    checked.append(current_cat)
+                if cat not in visited:
+                    visited.append(cat)
                     
-                    cat_total = 0
-                    for j in range(len(category_list)):
-                        if category_list[j] == current_cat:
-                            cat_total += amount_list[j]
+                    s = 0
+                    for y in range(total_items):
+                        if category_list[y] == cat:
+                            s = s + amount_list[y]
                             
-                    print(f"{current_cat}: Rs. {cat_total}")
+                    print(cat + " -> Rs.", s)
                     
-    elif choice == '4':
-        total = sum(amount_list)
-        print(f"Total overall expense: Rs. {total}")
+    elif opt == '4':
+        final_total = sum(amount_list)
+        print("Your total expenses are: Rs.", final_total)
         
-    elif choice == '5':
-        print(f"Bye {name}!")
+    elif opt == '5':
+        print("Catch you later, " + user + "!")
         break
         
     else:
-        print("Invalid choice, please try again.")
+        print("Incorrect choice. Press 1, 2, 3, 4, or 5.")
